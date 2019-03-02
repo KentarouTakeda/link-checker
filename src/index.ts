@@ -7,13 +7,19 @@ interface parse {
 	canonical: string|null;
 }
 
-export async function parseLinksFromFile(path: string): Promise<parse> {
-	const dom = await JSDOM.fromFile(path);
+export async function parseLinksFromFile(path: string): Promise<parse|null> {
+	const dom = await JSDOM.fromFile(path).catch(e => null);
+	if(dom == null) {
+		return null;
+	}
 	return parseLink(dom);
 }
 
-export async function parseLinksFromUrl(url: string): Promise<parse> {
-	const dom = await JSDOM.fromURL(url);
+export async function parseLinksFromUrl(url: string): Promise<parse|null> {
+	const dom = await JSDOM.fromURL(url).catch(e => null);
+	if(dom == null) {
+		return null;
+	}
 	return parseLink(dom);
 }
 

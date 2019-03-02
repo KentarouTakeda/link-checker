@@ -4,8 +4,8 @@ describe('parseLinksFromUrl', ()=>{
 	it('http://example.com/', async done => {
 		const parse = await parseLinksFromUrl('http://example.com/');
 
-		expect(parse.links[0]).toBe('http://www.iana.org/domains/example');
-		expect(parse.title).toBe('Example Domain');
+		expect(parse!.links[0]).toBe('http://www.iana.org/domains/example');
+		expect(parse!.title).toBe('Example Domain');
 
 		done();
 	});
@@ -13,8 +13,8 @@ describe('parseLinksFromUrl', ()=>{
 	it('title, linkが存在しない', async done =>{
 		const parse = await parseLinksFromFile(__dirname + '/html/nothing.html');
 
-		expect(parse.links).toEqual([]);
-		expect(parse.title).toBe('');
+		expect(parse!.links).toEqual([]);
+		expect(parse!.title).toBe('');
 
 		done();
 	});
@@ -22,7 +22,7 @@ describe('parseLinksFromUrl', ()=>{
 	it('canonicalが存在', async done =>{
 		const parse = await parseLinksFromFile(__dirname + '/html/canonical.html');
 
-		expect(parse.canonical).toBe('http://example.com/');
+		expect(parse!.canonical).toBe('http://example.com/');
 
 		done();
 	});
@@ -30,7 +30,7 @@ describe('parseLinksFromUrl', ()=>{
 	it('a[href]の値は絶対URLで取得される', async done =>{
 		const parse = await parseLinksFromFile(__dirname + '/html/href.html');
 
-		expect(parse.links).not.toEqual(['anchor.html']);
+		expect(parse!.links).not.toEqual(['anchor.html']);
 
 		done();
 	});
@@ -38,7 +38,7 @@ describe('parseLinksFromUrl', ()=>{
 	it('javascript:リンク', async done =>{
 		const parse = await parseLinksFromFile(__dirname + '/html/jslink.html');
 
-		expect(parse.links).toEqual([]);
+		expect(parse!.links).toEqual([]);
 
 		done();
 	});
@@ -46,14 +46,26 @@ describe('parseLinksFromUrl', ()=>{
 	it('fragmentリンク', async done =>{
 		const parse = await parseLinksFromFile(__dirname + '/html/fragment.html');
 
-		expect(parse.links).toEqual([]);
+		expect(parse!.links).toEqual([]);
 
 		done();
 	});
 
 	it('リダイレクト', async done =>{
 		const parse = await parseLinksFromUrl('http://google.com');
-		expect(parse.url).toBe('http://www.google.com/')
+		expect(parse!.url).toBe('http://www.google.com/')
+		done();
+	});
+
+	it('404', async done =>{
+		const parse = await parseLinksFromUrl('http://example.com/not-found');
+		expect(parse).toBeNull();
+		done();
+	});
+
+	it('ドメインが存在しない', async done =>{
+		const parse = await parseLinksFromUrl('http://no-exist.domain');
+		expect(parse).toBeNull();
 		done();
 	});
 });
