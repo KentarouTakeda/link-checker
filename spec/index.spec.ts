@@ -26,4 +26,12 @@ describe('parseLinksFromUrl', ()=>{
 
 		done();
 	});
+
+	it('a[href]の値は絶対URLで取得される', async done =>{
+		const parse = await parseLinksFromFile(__dirname + '/html/href.html');
+
+		expect(parse.links).not.toEqual(['anchor.html']);
+
+		done();
+	});
 });
