@@ -1,5 +1,4 @@
-
-import { parseLinksFromUrl } from "../src";
+import { parseLinksFromUrl, parseLinksFromFile } from "../src";
 
 describe('parseLinksFromUrl', ()=>{
 	it('http://example.com/', async done => {
@@ -9,5 +8,14 @@ describe('parseLinksFromUrl', ()=>{
 		expect(parse.title).toBe('Example Domain');
 
 		done();
-	})
+	});
+
+	it('title, linkが存在しない', async done =>{
+		const parse = await parseLinksFromFile(__dirname + '/html/nothing.html');
+
+		expect(parse.links).toEqual([]);
+		expect(parse.title).toBe('');
+
+		done();
+	});
 });
