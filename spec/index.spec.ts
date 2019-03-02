@@ -4,7 +4,7 @@ describe('parseLinksFromUrl', ()=>{
 	it('http://example.com/', async done => {
 		const parse = await parseLinksFromUrl('http://example.com/');
 
-		expect(parse!.links[0]).toBe('http://www.iana.org/domains/example');
+		expect(parse!.links[0].prop).toBe('http://www.iana.org/domains/example');
 		expect(parse!.title).toBe('Example Domain');
 
 		done();
@@ -30,7 +30,8 @@ describe('parseLinksFromUrl', ()=>{
 	it('a[href]の値は絶対URLで取得される', async done =>{
 		const parse = await parseLinksFromFile(__dirname + '/html/href.html');
 
-		expect(parse!.links).not.toEqual(['anchor.html']);
+		expect(parse!.links[0].prop).not.toEqual('anchor.html');
+		expect(parse!.links[0].attr).toEqual('anchor.html');
 
 		done();
 	});

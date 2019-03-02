@@ -3,7 +3,10 @@ import crypto = require('crypto');
 
 interface parse {
 	url: string;
-	links: string[];
+	links: {
+		prop: string,
+		attr: string,
+	}[]
 	title: string|null;
 	canonical: string|null;
 	hash: string;
@@ -45,7 +48,12 @@ async function parseLink(dom: JSDOM): Promise<parse> {
 			}
 			return true;
 		})
-		.map(e => e.href)
+		.map(e => {
+			return {
+				attr: e.getAttribute('href') as string,
+				prop: e.href,
+			}
+		})
 	;
 
 	const title = document.title;
