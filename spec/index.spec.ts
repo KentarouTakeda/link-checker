@@ -18,4 +18,12 @@ describe('parseLinksFromUrl', ()=>{
 
 		done();
 	});
+
+	it('canonicalが存在', async done =>{
+		const parse = await parseLinksFromFile(__dirname + '/html/canonical.html');
+
+		expect(parse.canonical).toBe('http://example.com/');
+
+		done();
+	});
 });

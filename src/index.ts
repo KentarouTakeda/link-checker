@@ -3,6 +3,7 @@ import { JSDOM } from 'jsdom';
 interface parse {
 	links: string[];
 	title: string|null;
+	canonical: string|null;
 }
 
 export async function parseLinksFromFile(path: string): Promise<parse> {
@@ -18,10 +19,16 @@ export async function parseLinksFromUrl(url: string): Promise<parse> {
 async function parseLink(dom: JSDOM): Promise<parse> {
 	const document = dom.window.document;
 
-	const hrefs = document.getElementsByTagName('a');
-	const links = Array.from(hrefs).map(e => e.href)
+	const eHref = document.getElementsByTagName('a');
+	const links = Array.from(eHref).map(e => e.href)
 
 	const title = document.title;
 
-	return { links, title };
+	let canonical: string|null = null;
+	const eCanonical = document.querySelectorAll<HTMLLinkElement>('link[rel="canonical"][href]');
+	if(eCanonical && eCanonical.length) {
+		canonical = eCanonical[0]['href'];
+	}
+
+	return { links, title, canonical };
 }
