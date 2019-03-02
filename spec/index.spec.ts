@@ -50,4 +50,10 @@ describe('parseLinksFromUrl', ()=>{
 
 		done();
 	});
+
+	it('リダイレクト', async done =>{
+		const parse = await parseLinksFromUrl('http://google.com');
+		expect(parse.url).toBe('http://www.google.com/')
+		done();
+	});
 });

@@ -1,6 +1,7 @@
 import { JSDOM } from 'jsdom';
 
 interface parse {
+	url: string;
 	links: string[];
 	title: string|null;
 	canonical: string|null;
@@ -18,6 +19,7 @@ export async function parseLinksFromUrl(url: string): Promise<parse> {
 
 async function parseLink(dom: JSDOM): Promise<parse> {
 	const document = dom.window.document;
+	const url = dom.window.location.href
 
 	const eHref = document.querySelectorAll<HTMLAnchorElement>('a[href]');
 	const links = Array.from(eHref)
@@ -45,5 +47,5 @@ async function parseLink(dom: JSDOM): Promise<parse> {
 		canonical = eCanonical[0]['href'];
 	}
 
-	return { links, title, canonical };
+	return { links, title, canonical, url };
 }
