@@ -20,7 +20,19 @@ async function parseLink(dom: JSDOM): Promise<parse> {
 	const document = dom.window.document;
 
 	const eHref = document.querySelectorAll<HTMLAnchorElement>('a[href]');
-	const links = Array.from(eHref).map(e => e.href)
+	const links = Array.from(eHref)
+		.filter(e => {
+			const href = e.getAttribute('href');
+			if(typeof href !== 'string') {
+				return false;
+			}
+			if(href[0] === '#') {
+				return false;
+			}
+			return true;
+		})
+		.map(e => e.href)
+	;
 
 	const title = document.title;
 

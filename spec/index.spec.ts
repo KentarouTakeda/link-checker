@@ -42,4 +42,12 @@ describe('parseLinksFromUrl', ()=>{
 
 		done();
 	});
+
+	it('fragmentリンク', async done =>{
+		const parse = await parseLinksFromFile(__dirname + '/html/fragment.html');
+
+		expect(parse.links).toEqual([]);
+
+		done();
+	});
 });
