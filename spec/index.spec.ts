@@ -38,7 +38,7 @@ describe('parseLinksFromUrl', ()=>{
 	it('javascript:リンク', async done =>{
 		const parse = await parseLinksFromFile(__dirname + '/html/jslink.html');
 
-		expect(parse.links).toEqual(['javascript:void(0)']);
+		expect(parse.links).toEqual([]);
 
 		done();
 	});

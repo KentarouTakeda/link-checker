@@ -29,6 +29,9 @@ async function parseLink(dom: JSDOM): Promise<parse> {
 			if(href[0] === '#') {
 				return false;
 			}
+			if(href.match(/^javascript:/i)) {
+				return false;
+			}
 			return true;
 		})
 		.map(e => e.href)
