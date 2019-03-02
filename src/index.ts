@@ -1,10 +1,13 @@
 import { JSDOM } from 'jsdom';
+import crypto = require('crypto');
 
 interface parse {
 	url: string;
 	links: string[];
 	title: string|null;
 	canonical: string|null;
+	hash: string;
+	source: string;
 }
 
 export async function parseLinksFromFile(path: string): Promise<parse|null> {
@@ -53,5 +56,14 @@ async function parseLink(dom: JSDOM): Promise<parse> {
 		canonical = eCanonical[0]['href'];
 	}
 
-	return { links, title, canonical, url };
+	const source = dom.window.document.documentElement.outerHTML;
+	const hash = sha1(source)
+
+	return { links, title, canonical, url, hash, source };
+}
+
+function sha1(str: string): string {
+	const hash = crypto.createHash('sha1');
+	hash.update(str);
+	return hash.digest('hex');
 }
