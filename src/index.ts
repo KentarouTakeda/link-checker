@@ -19,7 +19,7 @@ export async function parseLinksFromUrl(url: string): Promise<parse> {
 async function parseLink(dom: JSDOM): Promise<parse> {
 	const document = dom.window.document;
 
-	const eHref = document.getElementsByTagName('a');
+	const eHref = document.querySelectorAll<HTMLAnchorElement>('a[href]');
 	const links = Array.from(eHref).map(e => e.href)
 
 	const title = document.title;
