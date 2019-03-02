@@ -1,0 +1,26 @@
+{
+  "name": "link-checker",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-ts",
+    "watch": "chokidar src spec -c 'npm test'"
+  },
+  "keywords": [],
+  "author": "KentarouTakeda <takeda@youmind.jp> (https://github.com/KentarouTakeda)",
+  "license": "MIT",
+  "dependencies": {
+    "jsdom": "^13.2.0"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^3.3.9",
+    "@types/jsdom": "^12.2.3",
+    "@types/node": "^11.10.4",
+    "chokidar-cli": "^1.2.2",
+    "jasmine": "^3.3.1",
+    "jasmine-ts": "^0.3.0",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.3333"
+  }
+}
