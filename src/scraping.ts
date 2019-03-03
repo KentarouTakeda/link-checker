@@ -5,5 +5,9 @@ export async function scrape(url: string, limit: number = Infinity, log: Functio
 }
 
 async function f(url: string, limit: number, log: Function|undefined, i: number, result: parse[]): Promise<parse[]> {
+	const parse = await parseLinksFromUrl(url);
+	if(parse) {
+		result.push(parse);
+	}
 	return result;
 }

@@ -24,8 +24,11 @@ export async function parseLinksFromFile(path: string): Promise<parse|null> {
 }
 
 export async function parseLinksFromUrl(url: string): Promise<parse|null> {
+	if(url.match(/^file:\/\//)) {
+		return parseLinksFromFile(url.substring(7));
+	}
 	url = url.replace(/#.*/, '');
-	const dom = await JSDOM.fromURL(url).catch(e => null);
+	const dom = await JSDOM.fromURL(url).catch(e => null );
 	if(dom == null) {
 		return null;
 	}

@@ -17,4 +17,10 @@ describe('scraping', ()=>{
 		expect(result).toBeTruthy();
 		done();
 	});
+
+	it('limit=0', async done => {
+		const result = await scrape(url);
+		expect(result.length).toBe(1);
+		done();
+	});
 });
