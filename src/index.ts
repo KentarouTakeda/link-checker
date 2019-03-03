@@ -8,6 +8,7 @@ interface parse {
 		attr: string,
 	}[]
 	title: string|null;
+	description: string|null;
 	canonical: string|null;
 	hash: string;
 	source: string;
@@ -67,7 +68,13 @@ async function parseLink(dom: JSDOM): Promise<parse> {
 	const source = dom.window.document.documentElement.outerHTML;
 	const hash = sha1(source)
 
-	return { links, title, canonical, url, hash, source };
+	let description: string|null = null;
+	const eDescription = document.querySelectorAll('meta[name="description"][content]');
+	if(eDescription && eDescription[0]) {
+		description = eDescription[0].getAttribute('content');
+	}
+
+	return { links, title, canonical, url, hash, source, description };
 }
 
 function sha1(str: string): string {

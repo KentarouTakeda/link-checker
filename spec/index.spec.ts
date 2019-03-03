@@ -69,4 +69,16 @@ describe('parseLinksFromUrl', ()=>{
 		expect(parse).toBeNull();
 		done();
 	});
+
+	it('meta-description', async done =>{
+		const parse = await parseLinksFromFile(__dirname + '/html/meta-description.html');
+		expect(parse!.description).toBe('meta-description');
+		done();
+	});
+
+	it('no-description', async done =>{
+		const parse = await parseLinksFromFile(__dirname + '/html/nothing.html');
+		expect(parse!.description).toBeNull();
+		done();
+	});
 });
