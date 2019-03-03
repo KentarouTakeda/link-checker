@@ -4,8 +4,12 @@
     "module": "commonjs",
     "strict": true,
     "alwaysStrict": true,
+    "noEmit": true,
     "noImplicitReturns": true,
     "rootDir": "src",
     "outDir": "dist"
-  }
+  },
+  "exclude": [
+    "./spec/**.*"
+  ]
 }
