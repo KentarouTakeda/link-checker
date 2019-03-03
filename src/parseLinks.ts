@@ -1,7 +1,7 @@
 import { JSDOM } from 'jsdom';
 import crypto = require('crypto');
 
-interface parse {
+export interface parse {
 	url: string;
 	links: {
 		prop: string,
