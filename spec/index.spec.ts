@@ -81,4 +81,10 @@ describe('parseLinksFromUrl', ()=>{
 		expect(parse!.description).toBeNull();
 		done();
 	});
+
+	it('fragmentつきURLを読み込んだ場合', async done =>{
+		const parse = await parseLinksFromUrl('http://example.com/#fragment');
+		expect(parse!.url).toBe('http://example.com/');
+		done();
+	});
 });

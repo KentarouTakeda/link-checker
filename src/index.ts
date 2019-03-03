@@ -15,6 +15,7 @@ interface parse {
 }
 
 export async function parseLinksFromFile(path: string): Promise<parse|null> {
+	path = path.replace(/#.*/, '');
 	const dom = await JSDOM.fromFile(path).catch(e => null);
 	if(dom == null) {
 		return null;
@@ -23,6 +24,7 @@ export async function parseLinksFromFile(path: string): Promise<parse|null> {
 }
 
 export async function parseLinksFromUrl(url: string): Promise<parse|null> {
+	url = url.replace(/#.*/, '');
 	const dom = await JSDOM.fromURL(url).catch(e => null);
 	if(dom == null) {
 		return null;
