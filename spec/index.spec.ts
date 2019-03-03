@@ -1,4 +1,4 @@
-import { parseLinksFromUrl, parseLinksFromFile } from "../src";
+import { parseLinksFromUrl, parseLinksFromFile } from "../src/parseLinks";
 
 describe('parseLinksFromUrl', ()=>{
 	it('http://example.com/', async done => {
