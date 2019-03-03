@@ -36,6 +36,15 @@ describe('parseLinksFromUrl', ()=>{
 		done();
 	});
 
+	it('a[href]のフラグメントは無視される', async done =>{
+		const parse = await parseLinksFromFile(__dirname + '/html/href-with-fragment.html');
+
+		expect(parse!.links[0].prop).not.toEqual('anchor.html');
+		expect(parse!.links[0].attr).toEqual('anchor.html');
+
+		done();
+	});
+
 	it('javascript:リンク', async done =>{
 		const parse = await parseLinksFromFile(__dirname + '/html/jslink.html');
 

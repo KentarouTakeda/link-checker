@@ -53,8 +53,8 @@ async function parseLink(dom: JSDOM): Promise<parse> {
 		})
 		.map(e => {
 			return {
-				attr: e.getAttribute('href') as string,
-				prop: e.href,
+				attr: (e.getAttribute('href') as string).replace(/#.*/, ''),
+				prop: e.href.replace(/#.*/, ''),
 			}
 		})
 	;
