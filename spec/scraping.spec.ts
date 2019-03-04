@@ -29,4 +29,10 @@ describe('scraping', ()=>{
 		expect(result.length).toBe(3, result.map(parse => parse.url));
 		done();
 	});
+
+	it('limit=Infinity', async done => {
+		const result = await scrape(url);
+		expect(result.length).toBe(4, result.map(parse => parse.url));
+		done();
+	});
 });
