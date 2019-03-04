@@ -8,6 +8,12 @@ async function f(url: string, limit: number, log: Function|undefined, i: number,
 	const parse = await parseLinksFromUrl(url);
 	if(parse) {
 		result.push(parse);
+		if(i >= limit) {
+			return result;
+		}
+		for(let link of parse.links) {
+			await f(link.prop, limit, log, i+1, result)
+		}
 	}
 	return result;
 }
