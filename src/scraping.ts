@@ -12,7 +12,9 @@ async function f(url: string, limit: number, log: Function|undefined, i: number,
 			return result;
 		}
 		for(let link of parse.links) {
-			await f(link.prop, limit, log, i+1, result)
+			if(result.map(parse => parse.url).indexOf(link.prop) === -1) {
+				await f(link.prop, limit, log, i+1, result)
+			}
 		}
 	}
 	return result;
