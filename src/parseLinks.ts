@@ -79,7 +79,7 @@ async function parseLink(dom: JSDOM): Promise<parse> {
 		description = eDescription[0].getAttribute('content');
 	}
 
-	return { links, title, canonical, url, hash, source, description };
+	return { url, title, canonical, description, links, hash, source };
 }
 
 function sha1(str: string): string {
