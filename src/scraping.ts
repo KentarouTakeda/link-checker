@@ -6,10 +6,15 @@ export async function scrape(url: string, limit: number = Infinity, log: Functio
 }
 
 async function f(url: string, limit: number, log: Function|undefined, i: number, result: parse[]): Promise<parse[]> {
-	log && log(`Scraping URL ${url}`);
+	log && log(`Scraping ${url}`);
 	const parse = await parseLinksFromUrl(url);
 	if(parse) {
-		log && log(`  Landing to URL ${parse.url}`);
+		if(result.map(parse => parse.url).indexOf(parse.url) !== -1) {
+			log && log(`  Landing to ${parse.url} (already retrieved)`);
+			return result;
+		}
+		log && log(`  Landing to ${parse.url} (parse)`);
+
 		result.push(parse);
 		if(i >= limit) {
 			return result;
