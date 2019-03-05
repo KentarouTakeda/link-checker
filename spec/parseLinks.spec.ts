@@ -53,6 +53,14 @@ describe('parseLinksFromUrl', ()=>{
 		done();
 	});
 
+	it('mailto:リンク', async done =>{
+		const parse = await parseLinksFromFile(__dirname + '/html/mailtolink.html');
+
+		expect(parse!.links).toEqual([]);
+
+		done();
+	});
+
 	it('fragmentリンク', async done =>{
 		const parse = await parseLinksFromFile(__dirname + '/html/fragment.html');
 

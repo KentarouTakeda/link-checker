@@ -1,4 +1,5 @@
 import { JSDOM } from 'jsdom';
+import URL = require('url');
 import crypto = require('crypto');
 
 export interface parse {
@@ -49,7 +50,7 @@ async function parseLink(dom: JSDOM): Promise<parse> {
 			if(href[0] === '#') {
 				return false;
 			}
-			if(href.match(/^javascript:/i)) {
+			if(-1 === ['http:', 'https:', 'file:'].indexOf(URL.parse(e.href).protocol || '')) {
 				return false;
 			}
 			return true;
