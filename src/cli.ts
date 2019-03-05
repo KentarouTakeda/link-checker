@@ -5,6 +5,7 @@ import URL = require('url');
 program
 	.usage('[options] <url>')
 	.option('-l, --limit <n>', 'Number of times to follow links', parseInt)
+	.option('-n, --number <n>', 'Number of pages to retrieve', parseInt)
 	.parse(process.argv)
 ;
 
@@ -20,7 +21,12 @@ if(program.limit != null) {
 	limit = program.limit;
 }
 
-scrape(url, limit, console.warn).then(result => {
+let number = 100;
+if(program.number != null) {
+	number = program.number;
+}
+
+scrape(url, limit, number, console.warn).then(result => {
 	const a = result.map(v => {
 		delete v.source;
 		delete v.hash;

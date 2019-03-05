@@ -1,11 +1,11 @@
 import { parse, parseLinksFromUrl } from './parseLinks';
 import URL = require('url');
 
-export async function scrape(url: string, limit: number = Infinity, log: Function|undefined = ()=>{}): Promise<parse[]> {
-	return f(url, limit, log, 0, []);
+export async function scrape(url: string, limit: number = Infinity, number: number = Infinity, log: Function|undefined = ()=>{}): Promise<parse[]> {
+	return f(url, limit, number, log, 0, []);
 }
 
-async function f(url: string, limit: number, log: Function|undefined, i: number, result: parse[]): Promise<parse[]> {
+async function f(url: string, limit: number, number: number, log: Function|undefined, i: number, result: parse[]): Promise<parse[]> {
 	log && log(`Scraping ${url}`);
 	const parse = await parseLinksFromUrl(url);
 	if(parse) {
@@ -22,7 +22,9 @@ async function f(url: string, limit: number, log: Function|undefined, i: number,
 		for(let link of parse.links) {
 			if(result.map(parse => parse.url).indexOf(link.prop) === -1) {
 				if(isSameDomain(url, link.prop)) {
-					await f(link.prop, limit, log, i+1, result)
+					if(result.length < number) {
+						await f(link.prop, limit, number, log, i+1, result)
+					}
 				}
 			}
 		}
