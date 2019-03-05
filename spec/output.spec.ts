@@ -1,5 +1,5 @@
 import { parse } from '../src/parseLinks';
-import { summary } from '../src/output';
+import { summary, links } from '../src/output';
 
 describe('output', ()=>{
 	const result: parse[] = require('./google.co.jp.json');
@@ -11,6 +11,16 @@ describe('output', ()=>{
 			expect(v[1]).toBeDefined();
 			expect(v[2]).toBeDefined();
 			expect(v[3]).toBeDefined();
+		});
+	});
+
+	it('links', ()=>{
+		links(result).forEach(v => {
+			expect(v.length).toBe(8);
+			v.forEach(c => {
+				expect(c).toBeDefined();
+				expect(c).toEqual(jasmine.any(String));
+			});
 		});
 	});
 });
