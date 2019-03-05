@@ -20,7 +20,7 @@ if(program.limit != null) {
 	limit = program.limit
 }
 
-scrape(url, 1, console.warn).then(result => {
+scrape(url, limit, console.warn).then(result => {
 	const a = result.map(v => {
 		delete v.source;
 		delete v.hash;
