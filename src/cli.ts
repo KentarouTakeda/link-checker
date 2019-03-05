@@ -5,6 +5,8 @@ import URL = require('url');
 program
 	.usage('[options] <url>')
 	.option('-l, --limit <n>', 'Number of times to follow links', parseInt)
+	.option('-n, --number <n>', 'Number of pages to retrieve', parseInt)
+	.option('-w, --wait <n>', 'Wait time to retrieve', parseInt)
 	.parse(process.argv)
 ;
 
@@ -17,10 +19,20 @@ const url = program.args[0];
 
 let limit = 2
 if(program.limit != null) {
-	limit = program.limit
+	limit = program.limit;
 }
 
-scrape(url, 1, console.warn).then(result => {
+let number = 100;
+if(program.number != null) {
+	number = program.number;
+}
+
+let wait = 100;
+if(program.wait != null) {
+	wait = program.wait;
+}
+
+scrape(url, limit, number, wait, console.warn).then(result => {
 	const a = result.map(v => {
 		delete v.source;
 		delete v.hash;
