@@ -6,6 +6,7 @@ program
 	.usage('[options] <url>')
 	.option('-l, --limit <n>', 'Number of times to follow links', parseInt)
 	.option('-n, --number <n>', 'Number of pages to retrieve', parseInt)
+	.option('-w, --wait <n>', 'Wait time to retrieve', parseInt)
 	.parse(process.argv)
 ;
 
@@ -26,7 +27,12 @@ if(program.number != null) {
 	number = program.number;
 }
 
-scrape(url, limit, number, console.warn).then(result => {
+let wait = 100;
+if(program.wait != null) {
+	wait = program.wait;
+}
+
+scrape(url, limit, number, wait, console.warn).then(result => {
 	const a = result.map(v => {
 		delete v.source;
 		delete v.hash;
