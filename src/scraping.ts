@@ -14,6 +14,10 @@ async function f(url: string, limit: number, number: number, wait: number, log: 
 			log && log(`  Landing to ${parse.url} (already retrieved)`);
 			return result;
 		}
+		if(false === isSameDomain(url, parse.url)) {
+			log && log(`  Landing to ${parse.url} (skip)`);
+			return result;
+		}
 		log && log(`  Landing to ${parse.url} (parse)`);
 
 		result.push(parse);
