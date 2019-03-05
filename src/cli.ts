@@ -17,7 +17,7 @@ const url = program.args[0];
 
 let limit = 2
 if(program.limit != null) {
-	limit = program.limit
+	limit = program.limit;
 }
 
 scrape(url, limit, console.warn).then(result => {
