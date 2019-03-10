@@ -11,8 +11,6 @@ export interface parse {
 	title: string|null;
 	description: string|null;
 	canonical: string|null;
-	hash: string;
-	source: string;
 }
 
 export async function parseLinksFromFile(path: string): Promise<parse|null> {
@@ -71,16 +69,13 @@ async function parseLink(dom: JSDOM): Promise<parse> {
 		canonical = eCanonical[0]['href'];
 	}
 
-	const source = dom.window.document.documentElement.outerHTML;
-	const hash = sha1(source)
-
 	let description: string|null = null;
 	const eDescription = document.querySelectorAll('meta[name="description"][content]');
 	if(eDescription && eDescription[0]) {
 		description = eDescription[0].getAttribute('content');
 	}
 
-	return { url, title, canonical, description, links, hash, source };
+	return { url, title, canonical, description, links };
 }
 
 function sha1(str: string): string {
