@@ -26,10 +26,14 @@ if(module.parent == null) {
 	if(fileName == null) {
 		console.log('Invalid URL');
 		process.exit();
+		throw new Error();
 	}
 
+	let out: string;
 	if(program.out && typeof program.out === 'string' && program.out.length>0) {
-		fileName = program.out;
+		out = program.out;
+	} else {
+		out = fileName;
 	}
 
 	let limit = 20;
@@ -53,7 +57,7 @@ if(module.parent == null) {
 			links: links(result),
 		});
 
-		XLSX.writeFile(book, 'out.xlsx');
+		XLSX.writeFile(book, out);
 	});
 }
 
