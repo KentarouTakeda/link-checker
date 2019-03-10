@@ -12,7 +12,8 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.19.0",
-    "jsdom": "^13.2.0"
+    "jsdom": "^13.2.0",
+    "xlsx": "^0.14.1"
   },
   "devDependencies": {
     "@types/commander": "^2.12.2",
