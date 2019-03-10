@@ -1,5 +1,6 @@
 import { parse } from '../src/parseLinks';
-import { summary, links } from '../src/output';
+import { summary, links, MakeWorkbook } from '../src/output';
+import XLSX = require('xlsx');
 
 describe('output', ()=>{
 	const result: parse[] = require('./google.co.jp.json');
@@ -22,5 +23,15 @@ describe('output', ()=>{
 				expect(c).toEqual(jasmine.any(String));
 			});
 		});
+	});
+
+	it('MakeWorkbook', ()=>{
+		const book = MakeWorkbook({
+			summary: summary(result),
+			links: links(result),
+		});
+
+		const out = XLSX.write(book, {type: 'buffer'});
+		expect(out).toBeDefined();
 	});
 });
