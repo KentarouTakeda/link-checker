@@ -6,7 +6,7 @@ interface xlsxInput {
 	summary: SummaryRow[];
 	links: LinksRow[];
 }
-export function MakeWorkbook(input: xlsxInput): XLSX.WorkBook {
+export function MakeWorkBook(input: xlsxInput): XLSX.WorkBook {
 	const book = XLSX.utils.book_new();
 	const summary = XLSX.utils.aoa_to_sheet([[
 		'URL',
