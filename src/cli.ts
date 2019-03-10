@@ -33,11 +33,5 @@ if(program.wait != null) {
 }
 
 scrape(url, limit, number, wait, console.warn).then(result => {
-	const a = result.map(v => {
-		delete v.source;
-		delete v.hash;
-		return v;
-	});
-
-	console.log(JSON.stringify(a, null, 1));
+	console.log(JSON.stringify(result, null, 1));
 });
